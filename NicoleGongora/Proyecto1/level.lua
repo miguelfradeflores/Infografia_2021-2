@@ -466,7 +466,7 @@ function scene:create( event )
             name = "finishAnimation",
             start = 1,
             count = 9,
-            time = 800,
+            time = 1250,
             loopCount = 0,
             loopDirection = "forward"
         }
@@ -603,6 +603,7 @@ function scene:destroy( event )
         vertexLoadSquare=nil
         vertexNew=nil
         surloeAnimated=nil
+        levelCompleteDrawingAnimated=nil
         backgroundLevelMusic=nil
         timer.cancelAll( )
 end

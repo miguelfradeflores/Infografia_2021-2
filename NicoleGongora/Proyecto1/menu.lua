@@ -15,7 +15,7 @@ local boton, boton1, logo, blurry
  
  
 local levelparams={
-    numberOfEnemies=50,
+    numberOfEnemies=70,
     antenaVidaInicial=100
 }
 
