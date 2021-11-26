@@ -20,29 +20,50 @@ local options = {
 	numFrames = 8
 }
 
+-- local options2 = {
+-- 	width = 300,
+-- 	height = 300,
+-- 	numFrames = 8
+-- }
+
 
 local personaje_spritesheet = graphics.newImageSheet( "avanzaD.png",  options )
+local personaje_spritesheet_2 = graphics.newImageSheet( "avanzaL.png", options )
+
 
 local sequence = {
-	name = "avanzar_dereha",
-	-- start = 1,
-	-- count= 8,
-	frames = {5,6,7,8,1,2,3,4},
-	loopCount = 0,
-	time = 667
+	{
+		name="izquierda",
+		start = 1,
+		count = 8,
+		loopCount = 0,
+		time =	667,
+		sheet = personaje_spritesheet_2
+	},
+	{
+		name="derecha",
+		frames = {5,6,7,8,1,2,3,4},
+		loopCount = 0,
+		time = 667, 
+		sheet = personaje_spritesheet
+	}
 }
 
-local personaje = display.newSprite(  personaje_spritesheet, sequence )
+local personaje = display.newSprite(  personaje_spritesheet_2, sequence )
 personaje.x = cw/4; personaje.y = ch/2 + 60
---personaje:play( )
 personaje.xScale = 0.3; personaje.yScale = 0.3
 print("esta animado? ", personaje.isPlaying)
+--personaje:setSequence( "avanzar_izquierda" )
+-- personaje:setSequence( "seq1" )
+--personaje:play( )
+
 
 local controlador = display.newImageRect( "pad.png", 100,100)
 controlador.x = 60; controlador.y = ch -60
 
 function moverDerecha(e)
 	if e.phase == "began" then
+		personaje:setSequence( "derecha" )
 		personaje:play( )
 		timer.performWithDelay(100, function()
 				personaje.x = personaje.x + 5
