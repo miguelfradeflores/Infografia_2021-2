@@ -123,10 +123,6 @@ function verificarMarcador( e )
 	if ( marcadorJ == 5 ) then
 		timer.cancel( 'moverRival' )
 		jugador:removeEventListener( 'touch' , moverJugador )
-		Runtime:removeEventListener( 'enterFrame' , verificarJugadorX )
-		Runtime:removeEventListener( 'enterFrame' , verificarDisco )
-		Runtime:removeEventListener( 'enterFrame' , verificarMarcador )
-		Runtime:removeEventListener( 'collision' , anotacion )
 		jugador:setLinearVelocity( 0 , 0 )
 		jugador.angularVelocity = 0
 		jugador.x = 50
@@ -138,10 +134,6 @@ function verificarMarcador( e )
 	elseif ( marcadorR == 5 ) then
 		timer.cancel( 'moverRival' )
 		jugador:removeEventListener( 'touch' , moverJugador )
-		Runtime:removeEventListener( 'enterFrame' , verificarJugadorX )
-		Runtime:removeEventListener( 'enterFrame' , verificarDisco )
-		Runtime:removeEventListener( 'enterFrame' , verificarMarcador )
-		Runtime:removeEventListener( 'collision' , anotacion )
 		jugador:setLinearVelocity( 0 , 0 )
 		jugador.angularVelocity = 0
 		jugador.x = 50
