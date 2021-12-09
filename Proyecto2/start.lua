@@ -11,7 +11,9 @@ end
 
 function scene:create( event )
 	local sceneGroup = self.view
-	local play = display.newText( 'PLAY' , cw / 2 , ch / 2 , 'arial' , 40 )
+	local fondo = display.newImage( sceneGroup , 'fondo.png' , cw / 2 , ch / 2 )
+	local play = display.newCircle( sceneGroup , cw / 2 , ch - 105 , 65 )
+	play:setFillColor( 0 , 0.1 )
 	play:addEventListener( 'touch' , goGame )
 end
 

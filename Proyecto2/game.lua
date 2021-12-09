@@ -6,11 +6,14 @@ local scene = composer.newScene()
 
 physics.start()
 physics.setGravity( 0 , 0 )
-physics.setDrawMode( 'hybrid' )
+physics.setDrawMode( 'normal' )
 
 -- Variables de apoyo
 local cw = display.contentWidth
 local ch = display.contentHeight
+
+local grupoFondo = display.newGroup()
+local grupoJuego = display.newGroup()
 
 local marcadorJ = 0
 local marcadorR = 0
@@ -18,84 +21,71 @@ local marcadorR = 0
 local controlador = true
 
 -- Escenario
-local fondo = display.newRect( 0 , 0 , cw - 10 , ch - 10 )
+local fondo = display.newRect( grupoFondo , 0 , 0 , cw - 10 , ch - 10 )
 fondo:setFillColor( 0.75 )
 fondo:translate( cw / 2 , ch / 2 )
 
-local lineaCentral = display.newRect( 0 , 0 , 5 , ch - 10 )
+local lineaCentral = display.newRect( grupoFondo , 0 , 0 , 5 , ch - 10 )
 lineaCentral:setFillColor( 1 , 0 , 0 )
 lineaCentral:translate( cw / 2 , ch / 2 )
 
-local circuloCentral = display.newCircle( cw / 2 , ch / 2 , 50 )
+local circuloCentral = display.newCircle( grupoFondo , cw / 2 , ch / 2 , 50 )
 circuloCentral:setFillColor( 0 , 0 )
 circuloCentral.strokeWidth = 5
 circuloCentral:setStrokeColor( 1 , 0 , 0 )
 
-local marcadorJugador = display.newText( marcadorJ , 120 , 160 , 'arial' , 100 )
+local marcadorJugador = display.newText( grupoFondo , marcadorJ , 120 , 160 , 'arial' , 100 )
 marcadorJugador:setFillColor( 0 )
 
-local marcadorRival = display.newText( marcadorR , 360 , 160 , 'arial' , 100 )
+local marcadorRival = display.newText( grupoFondo , marcadorR , 360 , 160 , 'arial' , 100 )
 marcadorRival:setFillColor( 0 )
 
-local bordeSuperior = display.newRect( 0 , 0 , cw , 5 )
+local bordeSuperior = display.newRect( grupoJuego , 0 , 0 , cw , 5 )
 bordeSuperior:setFillColor( 1 )
 bordeSuperior:translate( cw / 2 , 2.5 )
 
-local bordeInferior = display.newRect( 0 , 0 , cw , 5 )
+local bordeInferior = display.newRect( grupoJuego , 0 , 0 , cw , 5 )
 bordeInferior:setFillColor( 1 )
 bordeInferior:translate( cw / 2 , ch - 2.5 )
 
-local bordeIzquierdoSuperior = display.newRect( 0 , 0 , 5 , 100 )
+local bordeIzquierdoSuperior = display.newRect( grupoJuego , 0 , 0 , 5 , 100 )
 bordeIzquierdoSuperior:setFillColor( 1 )
 bordeIzquierdoSuperior:translate( 2.5 , 50 )
 
-local bordeIzquierdoInferior = display.newRect( 0 , 0 , 5 , 100 )
+local bordeIzquierdoInferior = display.newRect( grupoJuego , 0 , 0 , 5 , 100 )
 bordeIzquierdoInferior:setFillColor( 1 )
 bordeIzquierdoInferior:translate( 2.5 , ch - 50 )
 
-local bordeDerechoSuperior = display.newRect( 0 , 0 , 5 , 100 )
+local bordeDerechoSuperior = display.newRect( grupoJuego , 0 , 0 , 5 , 100 )
 bordeDerechoSuperior:setFillColor( 1 )
 bordeDerechoSuperior:translate( cw - 2.5 , 50 )
 
-local bordeDerechoInferior = display.newRect( 0 , 0 , 5 , 100 )
+local bordeDerechoInferior = display.newRect( grupoJuego , 0 , 0 , 5 , 100 )
 bordeDerechoInferior:setFillColor( 1 )
 bordeDerechoInferior:translate( cw - 2.5 , ch - 50 )
 
-local arcoIzquierdo = display.newRect( 0 , 0 , 5 , ch)
+local arcoIzquierdo = display.newRect( grupoJuego , 0 , 0 , 5 , ch)
 arcoIzquierdo:setFillColor( 0 , 0 )
 arcoIzquierdo:translate( -30 , ch / 2 )
 
-local arcoDerecho = display.newRect( 0 , 0 , 5 , ch)
+local arcoDerecho = display.newRect( grupoJuego , 0 , 0 , 5 , ch)
 arcoDerecho:setFillColor( 0 , 0 )
 arcoDerecho:translate( cw + 30 , ch / 2 )
 
-local disco = display.newCircle( cw / 2 , ch / 2 , 15 )
+local disco = display.newCircle( grupoJuego , cw / 2 , ch / 2 , 15 )
 disco:setFillColor( 1 , 1 , 0 )
 disco.strokeWidth = 2
 disco:setStrokeColor( 0 )
 
-local jugador = display.newCircle( 50 , ch / 2 , 20 )
+local jugador = display.newCircle( grupoJuego , 50 , ch / 2 , 20 )
 jugador:setFillColor( 0 , 0 , 1 )
 jugador.strokeWidth = 2
 jugador:setStrokeColor( 0 )
 
-local rival = display.newCircle( cw - 50 , ch / 2 , 20 )
+local rival = display.newCircle( grupoJuego , cw - 50 , ch / 2 , 20 )
 rival:setFillColor( 0 , 1 , 0 )
 rival.strokeWidth = 2
 rival:setStrokeColor( 0 )
-
--- Fisicas
-physics.addBody( bordeInferior , 'static' )
-physics.addBody( bordeIzquierdoInferior , 'static' )
-physics.addBody( bordeIzquierdoSuperior , 'static' )
-physics.addBody( bordeSuperior , 'static' )
-physics.addBody( bordeDerechoInferior , 'static' )
-physics.addBody( bordeDerechoSuperior , 'static' )
-physics.addBody( arcoIzquierdo , 'static' )
-physics.addBody( arcoDerecho , 'static' )
-physics.addBody( disco , 'dynamic' , { radius = 15 } )
-physics.addBody( jugador , 'dynamic' , { radius = 20 } )
-physics.addBody( rival , 'static' , { radius = 20 } )
 
 -- Funciones
 function setControlador()
@@ -105,9 +95,9 @@ end
 function mostrarResultados()
 	display.remove( marcadorJugador )
 	display.remove( marcadorRival )
-	marcadorJugador = display.newText( marcadorJ , 120 , 160 , 'arial' , 100 )
+	marcadorJugador = display.newText( grupoFondo , marcadorJ , 120 , 160 , 'arial' , 100 )
 	marcadorJugador:setFillColor( 0 )
-	marcadorRival = display.newText( marcadorR , 360 , 160 , 'arial' , 100 )
+	marcadorRival = display.newText( grupoFondo , marcadorR , 360 , 160 , 'arial' , 100 )
 	marcadorRival:setFillColor( 0 )
 end
 
@@ -130,7 +120,37 @@ function verificarDisco( e )
 end
 
 function verificarMarcador( e )
-	
+	if ( marcadorJ == 5 ) then
+		timer.cancel( 'moverRival' )
+		jugador:removeEventListener( 'touch' , moverJugador )
+		Runtime:removeEventListener( 'enterFrame' , verificarJugadorX )
+		Runtime:removeEventListener( 'enterFrame' , verificarDisco )
+		Runtime:removeEventListener( 'enterFrame' , verificarMarcador )
+		Runtime:removeEventListener( 'collision' , anotacion )
+		jugador:setLinearVelocity( 0 , 0 )
+		jugador.angularVelocity = 0
+		jugador.x = 50
+		jugador.y = ch / 2
+		rival.x = cw - 50
+		rival.y = ch / 2
+		local ganador = display.newText( 'GANASTE' , cw / 4 , ch * 3 / 4 , 'arial' , 30 )
+		ganador:setFillColor( 0 , 0 , 1 )
+	elseif ( marcadorR == 5 ) then
+		timer.cancel( 'moverRival' )
+		jugador:removeEventListener( 'touch' , moverJugador )
+		Runtime:removeEventListener( 'enterFrame' , verificarJugadorX )
+		Runtime:removeEventListener( 'enterFrame' , verificarDisco )
+		Runtime:removeEventListener( 'enterFrame' , verificarMarcador )
+		Runtime:removeEventListener( 'collision' , anotacion )
+		jugador:setLinearVelocity( 0 , 0 )
+		jugador.angularVelocity = 0
+		jugador.x = 50
+		jugador.y = ch / 2
+		rival.x = cw - 50
+		rival.y = ch / 2
+		local perdedor = display.newText( 'PERDISTE' , cw / 4 , ch * 3 / 4 , 'arial' , 30 )
+		perdedor:setFillColor( 1 , 0 , 0 )
+	end
 end
 
 function anotacion(e)
@@ -156,17 +176,19 @@ end
 -- Scenes
 function scene:create( event )
 	local sceneGroup = self.view
-	
-	-- Listeners
-	mostrarResultados()
-	jugador:addEventListener( 'touch' , moverJugador )
-	Runtime:addEventListener( 'enterFrame' , verificarJugadorX )
-	Runtime:addEventListener( 'enterFrame' , verificarDisco )
-	Runtime:addEventListener( 'collision' , anotacion )
-	timer.performWithDelay( 2000 , function()
-		transition.to( rival , { time = 1000, y = 110 } )
-		transition.to( rival , { time = 1000, y = 210 , delay = 1000 } )
-	end , 0 , 'moverRival' )
+
+	-- Fisicas
+	physics.addBody( bordeInferior , 'static' )
+	physics.addBody( bordeIzquierdoInferior , 'static' )
+	physics.addBody( bordeIzquierdoSuperior , 'static' )
+	physics.addBody( bordeSuperior , 'static' )
+	physics.addBody( bordeDerechoInferior , 'static' )
+	physics.addBody( bordeDerechoSuperior , 'static' )
+	physics.addBody( arcoIzquierdo , 'static' )
+	physics.addBody( arcoDerecho , 'static' )
+	physics.addBody( disco , 'dynamic' , { radius = 15 } )
+	physics.addBody( jugador , 'dynamic' , { radius = 20 } )
+	physics.addBody( rival , 'static' , { radius = 20 } )
 end
 
 function scene:show( event )
@@ -175,7 +197,17 @@ function scene:show( event )
 	if ( phase == "will" ) then
 		
 	elseif ( phase == "did" ) then
-		
+		-- Listeners
+		mostrarResultados()
+		jugador:addEventListener( 'touch' , moverJugador )
+		Runtime:addEventListener( 'enterFrame' , verificarJugadorX )
+		Runtime:addEventListener( 'enterFrame' , verificarDisco )
+		Runtime:addEventListener( 'enterFrame' , verificarMarcador )
+		Runtime:addEventListener( 'collision' , anotacion )
+		timer.performWithDelay( 1000 , function()
+			transition.to( rival , { time = 500, y = 110 } )
+			transition.to( rival , { time = 500, y = 210 , delay = 500 } )
+		end , 0 , 'moverRival' )
 	end
 end
 
