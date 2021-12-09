@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/victory_or_wedding_music_with_bells_c64_style.ogg-40580ab0ae7a8de4963deb34f4f501ef.oggstr"
+
+[deps]
+
+source_file="res://music/victory_or_wedding_music_with_bells_c64_style.ogg"
+dest_files=[ "res://.import/victory_or_wedding_music_with_bells_c64_style.ogg-40580ab0ae7a8de4963deb34f4f501ef.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

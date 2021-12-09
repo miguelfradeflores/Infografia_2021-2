@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Menu_Sounds_V2_Minimalistic_UNPAUSE.mp3-7054cb6dd88275679014a26445e2c753.mp3str"
+
+[deps]
+
+source_file="res://music/Menu_Sounds_V2_Minimalistic_UNPAUSE.mp3"
+dest_files=[ "res://.import/Menu_Sounds_V2_Minimalistic_UNPAUSE.mp3-7054cb6dd88275679014a26445e2c753.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

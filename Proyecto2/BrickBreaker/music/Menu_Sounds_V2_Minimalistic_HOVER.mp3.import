@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Menu_Sounds_V2_Minimalistic_HOVER.mp3-d958defd177ededf6965e61cb289367b.mp3str"
+
+[deps]
+
+source_file="res://music/Menu_Sounds_V2_Minimalistic_HOVER.mp3"
+dest_files=[ "res://.import/Menu_Sounds_V2_Minimalistic_HOVER.mp3-d958defd177ededf6965e61cb289367b.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

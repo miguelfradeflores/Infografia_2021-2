@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Menu_Sounds_V2_Minimalistic_ERROR.mp3-ce93b5e162da0d31bff0ffbe0ae5d8e5.mp3str"
+
+[deps]
+
+source_file="res://music/Menu_Sounds_V2_Minimalistic_ERROR.mp3"
+dest_files=[ "res://.import/Menu_Sounds_V2_Minimalistic_ERROR.mp3-ce93b5e162da0d31bff0ffbe0ae5d8e5.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

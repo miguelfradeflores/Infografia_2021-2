@@ -1,0 +1,164 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://scenes/background/background.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/HUD/HUD.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Main.gd" type="Script" id=3]
+[ext_resource path="res://scenes/ball.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/Paddle.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/level/level1.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/level/level2.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/level/level3.tscn" type="PackedScene" id=8]
+[ext_resource path="res://sprites/buttons/icons_1.png" type="Texture" id=9]
+[ext_resource path="res://sprites/bricks/18-Breakout-Tiles.png" type="Texture" id=10]
+[ext_resource path="res://music/victory_or_wedding_music_with_bells_c64_style.ogg" type="AudioStream" id=11]
+[ext_resource path="res://music/ThisGameIsOver.wav" type="AudioStream" id=12]
+[ext_resource path="res://music/theme-of-the-masked-man_loop.ogg" type="AudioStream" id=13]
+[ext_resource path="res://music/Menu_Sounds_V2_Minimalistic_ERROR.mp3" type="AudioStream" id=14]
+
+[sub_resource type="AtlasTexture" id=8]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 2, 124, 31, 31 )
+
+[sub_resource type="AtlasTexture" id=1]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 188, 62, 31, 31 )
+
+[sub_resource type="AtlasTexture" id=2]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 157, 62, 31, 31 )
+
+[sub_resource type="SpriteFrames" id=7]
+animations = [ {
+"frames": [ ExtResource( 10 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="DynamicFontData" id=3]
+font_path = "res://Fonts/FugazOne-Regular.ttf"
+
+[sub_resource type="DynamicFont" id=4]
+size = 56
+font_data = SubResource( 3 )
+
+[node name="Main" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="walls" parent="." instance=ExtResource( 1 )]
+
+[node name="ball" parent="." instance=ExtResource( 4 )]
+visible = false
+position = Vector2( 261, 639 )
+scale = Vector2( 2, 2 )
+
+[node name="Paddle" parent="." instance=ExtResource( 5 )]
+visible = false
+position = Vector2( 261, 687 )
+
+[node name="BallPosition" type="Position2D" parent="."]
+position = Vector2( 261, 639 )
+
+[node name="PaddlePosition" type="Position2D" parent="."]
+position = Vector2( 261, 687 )
+
+[node name="level1" parent="." instance=ExtResource( 6 )]
+visible = false
+
+[node name="level2" parent="." instance=ExtResource( 7 )]
+visible = false
+
+[node name="level3" parent="." instance=ExtResource( 8 )]
+visible = false
+
+[node name="HUD" parent="." instance=ExtResource( 2 )]
+
+[node name="menu" type="TextureButton" parent="."]
+margin_left = 415.0
+margin_top = 2.0
+margin_right = 441.0
+margin_bottom = 32.0
+texture_normal = SubResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="pause" type="TextureButton" parent="."]
+margin_left = 444.0
+margin_top = 2.0
+margin_right = 484.0
+margin_bottom = 42.0
+texture_normal = SubResource( 1 )
+texture_pressed = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PopupPause" type="Popup" parent="."]
+pause_mode = 2
+margin_left = -2.0
+margin_top = -3.0
+margin_right = 479.0
+margin_bottom = 721.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="PopupPause"]
+position = Vector2( 254, 369 )
+scale = Vector2( 0.809896, 0.78125 )
+frames = SubResource( 7 )
+
+[node name="Label" type="Label" parent="PopupPause"]
+margin_left = 170.0
+margin_top = 322.0
+margin_right = 336.0
+margin_bottom = 405.0
+custom_fonts/font = SubResource( 4 )
+text = "Pause"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureButton" type="TextureButton" parent="PopupPause"]
+margin_top = -1.0
+margin_right = 485.0
+margin_bottom = 734.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="win" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 11 )
+autoplay = true
+bus = "New Bus"
+
+[node name="gameOver" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 12 )
+autoplay = true
+bus = "New Bus"
+
+[node name="btn" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 14 )
+bus = "sfx"
+
+[node name="game" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 13 )
+volume_db = -0.382
+autoplay = true
+bus = "New Bus"
+
+[connection signal="hit" from="walls" to="." method="_on_ball_hit"]
+[connection signal="brickDestroyed" from="ball" to="." method="_on_ball_brickDestroyed_score"]
+[connection signal="power2" from="Paddle" to="." method="_on_power2"]
+[connection signal="power4" from="Paddle" to="." method="_on_Paddle_power4"]
+[connection signal="start_game" from="HUD" to="." method="_on_start_game"]
+[connection signal="start_level1" from="HUD" to="." method="_on_start_level1"]
+[connection signal="start_level2" from="HUD" to="." method="_on_start_level2"]
+[connection signal="start_level3" from="HUD" to="." method="_on_start_level3"]
+[connection signal="pressed" from="menu" to="." method="_on_home_pressed"]
+[connection signal="pressed" from="pause" to="." method="_on_pause_pressed"]
+[connection signal="pressed" from="PopupPause/TextureButton" to="." method="_on_unpause_pressed"]
