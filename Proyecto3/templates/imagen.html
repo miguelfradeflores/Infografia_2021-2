@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Imagen</title>
+  </head>
+  <body>
+    {% if path %}
+      <h1>IMAGEN:</h1>
+      <img src="{{path}}" width="720" height="480">
+    {% endif %}
+    {% if text %}
+      <h1>TEXTO:</h1>
+      <h3 style="white-space: pre-wrap;">{{text}}</h3>
+    {% endif %}
+    {% if lines %}
+      <h1>LINEAS:</h1>
+      <h3>{{lines}}</h3>
+    {% endif %}
+    {% if words %}
+      <h1>REPETICION DE PALABRAS:</h1>
+      {% for word in words %}
+        <h3>{{word[0]}}: {{word[1]}}</h3>
+      {% endfor %}
+    {% endif %}
+    <form action="/audio" method="POST">
+      <input type="hidden" name="text" value="{{text}}"><br>
+      <input type="submit" value="Reproducir Audio">
+    </form>
+    <form action="/translate" method="POST">
+      <input type="hidden" name="text" value="{{text}}"><br>
+      <input type="submit" value="Traducir">
+    </form>
+    <form action="/graphic" method="POST">
+      <input type="hidden" name="text" value="{{text}}"><br>
+      <input type="submit" value="Gráfica de Palabras">
+    </form>
+  </body>
+</html>
